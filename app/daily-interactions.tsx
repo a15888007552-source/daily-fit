@@ -9,7 +9,7 @@ export function MotionNumber({value,digits=0}:{value:number;digits?:number}){
 }
 export function RecordNote({text}:{text:string}){
  const [open,setOpen]=useState(false);
- if(text.length<46)return <small className="record-note">{text}</small>;
+ if(text.length<24)return <small className="record-note">{text}</small>;
  return <button type="button" className={'record-note note-toggle '+(open?'open':'')} aria-expanded={open} onClick={()=>setOpen(!open)}>{text}</button>;
 }
 export function WeekDots({state,date}:{state:State;date:string}){

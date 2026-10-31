@@ -115,3 +115,123 @@ h2{font-weight:600}
 @keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes page-in{from{opacity:0;transform:translateY(10px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
 @media(max-width:700px){.page-head h1{font-size:34px}.page-head{padding:30px 0 24px}.meal-row::before{left:-8px}.week-dots{display:none}}
+
+/* ───────── 桌面一屏:今日页不再长滚动 ───────── */
+.today-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 24px;align-items:end;padding:20px 0 14px}
+.today-head h1{font-size:40px;line-height:1.15;margin:0 0 6px;letter-spacing:-.5px}
+.today-head p{font-size:15px;color:var(--ink-soft);margin:0;animation:fade-up .6s .3s both}
+.th-note{display:block;margin-top:5px;font-size:12px;color:var(--muted)}
+.th-note b{color:var(--ink-soft)}
+.th-note button{border:0;background:none;color:var(--vermilion);padding:0 0 0 6px;font-size:12px;cursor:pointer}
+.th-actions{display:flex;align-items:center;gap:14px}
+.vitals{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fffefa80}
+.vitals>div{padding:11px 18px 12px;border-left:1px solid var(--line);display:grid;gap:1px;align-content:start}
+.vitals>div:first-child{border-left:0;padding-left:2px}
+.vitals small{font-size:12px;color:var(--muted)}
+.vitals strong{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.25;font-variant-numeric:tabular-nums}
+.vitals em{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-style:normal;font-size:12px;font-weight:400;color:var(--muted)}
+.vitals span{font-size:12px;color:var(--muted)}
+.vitals .bar{height:3px;margin:6px 0 0}
+
+.today-grid{display:grid;gap:22px;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,.95fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"a b c" "a b d"}
+.col{min-height:0;display:flex;flex-direction:column;gap:14px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#cfd2c3 transparent;padding:2px 6px 8px 2px;margin-right:-6px}
+.col-a{grid-area:a}.col-b{grid-area:b}.col-c{grid-area:c;overflow:visible}.col-d{grid-area:d}
+@media(min-width:1700px){.today-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,.95fr) minmax(0,.85fr);grid-template-rows:minmax(0,1fr);grid-template-areas:"a b c d"}.col-c{overflow-y:auto}}
+@media(min-width:1100px){
+ .main{height:max(100vh,800px);display:flex;flex-direction:column;padding-bottom:16px}
+ .topbar{height:56px;flex-shrink:0}
+ .page-content{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;display:flex;flex-direction:column}
+ .page-content>.today-grid{flex:1}
+ .page-content>.today-head{flex-shrink:0}
+}
+@media(max-width:1099px){.today-grid{display:flex;flex-direction:column}.col{overflow:visible;margin-right:0}.vitals{grid-template-columns:repeat(3,minmax(0,1fr))}.today-head{grid-template-columns:1fr}.th-actions{justify-content:flex-start}}
+@media(max-width:700px){.vitals{grid-template-columns:repeat(2,minmax(0,1fr))}.today-head h1{font-size:32px}}
+
+/* 左列:热量 + 圆环,压紧 */
+.today-grid .energy-panel{padding:18px 22px 12px}
+.today-grid .energy-number{margin:10px 0 2px}
+.today-grid .energy-number>strong{font-size:60px;letter-spacing:-3px}
+.today-grid .macro-grid{margin-top:12px;padding-top:12px}
+.today-grid .macro-grid strong{font-size:21px;margin:2px 0}
+.today-grid .complete-check{margin-top:10px;padding-top:10px}
+.today-grid .explorer-panel{padding:16px 20px}
+.today-grid .explorer-panel .section-heading{margin-bottom:6px}
+.today-grid .energy-explore-grid{grid-template-columns:116px minmax(0,1fr);gap:18px}
+.today-grid .donut-wrap{width:116px;height:116px}
+.today-grid .donut-center strong{font-size:22px}
+.today-grid .donut-center small{font-size:11px}
+.today-grid .energy-legend button{min-height:28px;padding:3px 6px}
+.today-grid .energy-legend p{margin-top:5px;font-size:12px;line-height:1.6}
+.today-grid .estimate-band{margin-top:10px;padding-top:10px}
+.today-grid .pulse-metrics{display:none}
+
+/* 中列:一餐一个小标题,食物一行一条 */
+.today-grid .journal-panel{padding:0}
+.today-grid .journal-panel .section-heading{margin:0 0 4px}
+.today-grid .meal-row{display:block;grid-template-columns:none;min-height:0;padding:12px 0 8px;gap:0}
+.today-grid .meal-time{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.today-grid .meal-time>span{display:none}
+.today-grid .meal-time b{font-size:14px;font-weight:600}
+.today-grid .meal-time small{display:block;font-size:12px;margin:0}
+.today-grid .meal-sum{margin:0 0 0 auto;font-size:13px}
+.today-grid .meal-row::before{left:-10px;top:14px;bottom:10px}
+.today-grid .food-item{padding:7px 8px 8px;margin:0 -8px;gap:10px}
+.today-grid .food-item+.food-item{padding-top:7px}
+.today-grid .food-item>div:first-child{display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 9px;flex:1}
+.today-grid .food-item strong{font-size:14px}
+.today-grid .food-item p{margin:0;font-size:12px}
+.today-grid .food-item .record-note,.today-grid .food-item .portion-control{flex-basis:100%;margin-top:2px}
+.today-grid .note-toggle{-webkit-line-clamp:1;line-clamp:1}
+.today-grid .row-actions .icon-button{opacity:0;transition:opacity .18s}
+.today-grid .food-item:hover .icon-button,.today-grid .food-item:focus-within .icon-button{opacity:1}
+@media(hover:none){.today-grid .row-actions .icon-button{opacity:1}}
+
+/* 右列:运动卡紧凑,顺序线放在下面/最右 */
+.today-grid .training-panel{padding:0}
+.today-grid .training-summary{padding:11px 0}
+.today-grid .training-toggle>small{margin-top:5px}
+.today-grid .template-button{margin-top:6px}
+.today-grid .empty-training{padding:16px 0}
+.today-grid .day-timeline{padding:14px 0 10px;border-top:1px solid var(--line);border-bottom:0}
+.today-grid .day-timeline .section-heading{margin-bottom:8px}
+.today-grid .timeline-event{padding-bottom:12px}
+.today-grid .timeline-copy small{-webkit-line-clamp:2;line-clamp:2}
+.today-grid .day-timeline>.tiny{display:none}
+
+/* 微调:一屏更紧,图例不折行,操作按钮悬停时浮出 */
+.today-head{padding:14px 0 12px}
+.today-head h1{font-size:38px}
+.th-note{margin-top:3px}
+.vitals>div{padding:9px 18px 10px}
+.today-grid .energy-number>strong{font-size:54px}
+.today-grid .energy-number{margin:6px 0 0}
+.today-grid .energy-foot>span:last-child{display:none}
+.today-grid .energy-panel .bar{margin-bottom:12px}
+.today-grid .macro-grid{margin-top:8px;padding-top:10px}
+.today-grid .complete-check{margin-top:6px;padding-top:8px}
+.today-grid .energy-panel{padding:16px 22px 10px}
+.today-grid .explorer-panel{padding:12px 18px}
+.today-grid .explorer-panel h2{font-size:17px}
+.today-grid .energy-explore-grid{grid-template-columns:104px minmax(0,1fr);gap:14px}
+.today-grid .donut-wrap{width:104px;height:104px}
+.today-grid .energy-legend button{min-height:25px;padding:2px 4px}
+.today-grid .energy-legend button>span{white-space:nowrap}
+.today-grid .energy-legend p{display:none}
+.today-grid .estimate-band{margin-top:6px;padding-top:8px}
+.today-grid .row-actions{position:relative}
+.today-grid .row-actions .icon-button{position:absolute;top:-3px;right:calc(100% + 4px)}
+.today-grid .row-actions .icon-button:nth-of-type(1){right:calc(100% + 34px)}
+.today-grid .food-item:hover{background:#efefe5}
+
+/* 运动卡:两行,箭头代替“展开详情”,编辑删除悬停才出现 */
+.today-grid .training-toggle{position:relative;padding-right:20px}
+.today-grid .training-toggle>small{display:none}
+.today-grid .training-toggle::after{content:"";position:absolute;right:3px;top:9px;width:6px;height:6px;border:solid #a8593f;border-width:0 1.6px 1.6px 0;transform:rotate(45deg);transition:transform .3s,top .3s}
+.today-grid .training-card.expanded .training-toggle::after{transform:rotate(225deg);top:12px}
+.today-grid .training-summary{padding:9px 0}
+.today-grid .training-summary .icon-button{opacity:0;transition:opacity .18s}
+.today-grid .training-card:hover .icon-button,.today-grid .training-card:focus-within .icon-button{opacity:1}
+.today-grid .exercise-icon{width:34px;height:34px}
+.today-grid .template-button{padding:10px 14px;min-height:0}
+.today-grid .template-button small{display:none}
+@media(hover:none){.today-grid .training-summary .icon-button{opacity:1}}
