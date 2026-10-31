@@ -1,0 +1,33 @@
+/* 圆环：CSS 的 transform-origin 会叠加 SVG 的 rotate(-90 80 80)，把色环推出卡片 */
+.donut-arc{transform-origin:0 0}
+.donut-wrap{flex-shrink:0}
+
+/* 食物备注：默认两行，点击展开 */
+.record-note{display:block;margin-top:4px;line-height:1.7}
+.note-toggle{display:block;width:100%;max-width:560px;padding:0;border:0;background:none;text-align:left;font:inherit;font-size:12px;line-height:1.7;cursor:pointer;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2}
+.note-toggle.open{display:block;overflow:visible}
+.note-toggle:hover{color:var(--ink)}
+.note-toggle:focus-visible{outline:2px solid #bc573c55;outline-offset:3px;border-radius:4px}
+
+/* 每餐小计 */
+.meal-sum{grid-column:2;font-style:normal;font-size:12px;color:#a8593f;font-variant-numeric:tabular-nums;margin-top:3px}
+@media(max-width:700px){.meal-sum{grid-column:auto}}
+
+/* 食物行：条目更紧凑，悬停有反馈 */
+.food-item{border-radius:8px;transition:background .18s}
+.food-item:hover{background:#f1f1e8}
+
+/* 没有称重记录时的趋势图不再占一整屏 */
+.empty-chart{min-height:96px}
+.trend-panel .empty-chart~.tiny,.trend-panel>.tiny{max-width:640px}
+
+/* 训练卡：展开按钮更好点 */
+.training-toggle{min-height:44px}
+.training-card:hover{background:#f0f1e925}
+
+/* 品牌副标题不换行；餐次列放宽；时间线说明按行截断而不是半行裁切 */
+.brand small{white-space:nowrap;letter-spacing:.9px}
+@media(min-width:701px){.meal-row{grid-template-columns:124px minmax(0,1fr)}}
+.timeline-copy small{max-height:none;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+@media(max-width:700px){.sidebar nav button{white-space:nowrap;font-size:12px;padding:0 4px;gap:4px}.sidebar nav button svg{width:14px;flex-shrink:0}}
+.empty-chart .chart-grid{display:none}

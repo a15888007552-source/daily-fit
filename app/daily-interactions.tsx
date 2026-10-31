@@ -7,6 +7,11 @@ export function MotionNumber({value,digits=0}:{value:number;digits?:number}){
  useEffect(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){setShown(value);last.current=value;return;}const from=last.current;last.current=value;let id=0,start=performance.now();const frame=(at:number)=>{const t=Math.min(1,(at-start)/650);setShown(from+(value-from)*(1-(1-t)**3));if(t<1)id=requestAnimationFrame(frame);};id=requestAnimationFrame(frame);return()=>cancelAnimationFrame(id);},[value]);
  return <>{n(shown,digits)}</>;
 }
+export function RecordNote({text}:{text:string}){
+ const [open,setOpen]=useState(false);
+ if(text.length<46)return <small className="record-note">{text}</small>;
+ return <button type="button" className={'record-note note-toggle '+(open?'open':'')} aria-expanded={open} onClick={()=>setOpen(!open)}>{text}</button>;
+}
 export function EnergyExplorer({rows,exercise,protein,goal}:{rows:Entry[];exercise:number;protein:number;goal:number}){
  const [view,setView]=useState<'meal'|'macro'>('meal'),food=rows.filter(e=>e.kind==='food'),colors=['#bc573c','#c39752','#687e58','#82999b'];
  const parts=view==='meal'?['早餐','午餐','晚餐','加餐'].map((name,i)=>({name,value:food.filter(e=>e.data.meal===name).reduce((s,e)=>s+(e.data.kcal||0),0),color:colors[i]})):[{name:'蛋白质',value:food.reduce((s,e)=>s+(e.data.protein||0)*4,0),color:colors[2]},{name:'碳水',value:food.reduce((s,e)=>s+(e.data.carbs||0)*4,0),color:colors[1]},{name:'脂肪',value:food.reduce((s,e)=>s+(e.data.fat||0)*9,0),color:colors[0]}];
