@@ -31,3 +31,87 @@
 .timeline-copy small{max-height:none;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
 @media(max-width:700px){.sidebar nav button{white-space:nowrap;font-size:12px;padding:0 4px;gap:4px}.sidebar nav button svg{width:14px;flex-shrink:0}}
 .empty-chart .chart-grid{display:none}
+
+/* ───────── 视觉层:墨、朱、纸 ─────────
+   一个衬线(Noto Serif SC)只管“大字”:日期、热量、体重、各节标题。
+   其余界面文字仍是无衬线。强调色只有一个朱砂红。 */
+:root{--serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",SimSun,serif;--ink-soft:#4a5148;--vermilion:#bc573c}
+body{background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,.energy-number>strong,.weight-display,.macro-grid strong,.pulse-metrics strong,.donut-center strong,.set-table-row i,.weekly-metric b{font-family:var(--serif)}
+h1{font-weight:700;letter-spacing:-.5px}
+h2{font-weight:600}
+.section-heading h2,.explorer-panel h2,.day-timeline h2,.trend-panel h2{font-size:19px;letter-spacing:.5px}
+.energy-number>strong{font-weight:600;letter-spacing:-3px}
+.macro-grid strong,.pulse-metrics strong{font-weight:600}
+.page-head h1{font-size:44px;line-height:1.15;margin:0 0 12px;letter-spacing:-1px}
+.page-head p{font-size:15px;color:var(--ink-soft)}
+.page-head{padding:44px 0 34px}
+
+/* 品牌:一方印 */
+.brand-mark{border-radius:6px;font-family:var(--serif);font-weight:700;font-size:24px;transform:rotate(-4deg);box-shadow:inset 0 0 0 2px #bc573c,inset 0 0 0 3.5px #fff9ee99;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.brand:hover .brand-mark{transform:rotate(3deg) scale(1.06)}
+.brand small{color:var(--vermilion);letter-spacing:3px}
+
+/* 热量:像量尺一样,每10%一个刻度 */
+.energy-panel .bar{height:5px;overflow:visible;background:#e8e6da;position:relative;margin-bottom:14px}
+.energy-panel .bar::after{content:"";position:absolute;left:0;right:0;top:9px;height:6px;background:repeating-linear-gradient(90deg,#b8b9a8 0 1px,transparent 1px 10%);opacity:.7;-webkit-mask:linear-gradient(90deg,#000 0 calc(100% - 1px),transparent 0);mask:linear-gradient(90deg,#000 0 calc(100% - 1px),transparent 0)}
+.energy-panel .bar i{background:linear-gradient(90deg,#bc573c,#cf6b45);position:relative}
+.energy-panel .bar i::after{content:"";position:absolute;right:-1px;top:-4px;width:2px;height:13px;border-radius:1px;background:var(--vermilion);animation:needle-in .9s .5s both cubic-bezier(.2,.8,.2,1)}
+.energy-panel{box-shadow:0 1px 0 #fff inset,0 18px 40px -28px #5a4a2e55}
+.energy-panel::after{width:260px;height:260px;right:-110px;top:-130px;background:radial-gradient(circle,#e7ad7d22,transparent 68%)}
+
+/* 圆环:细一点,逐段画出来 */
+.donut-arc{animation:arc-draw 1.1s cubic-bezier(.3,.7,.2,1) both}
+.donut-arc:nth-of-type(3){animation-delay:.12s}.donut-arc:nth-of-type(4){animation-delay:.24s}.donut-arc:nth-of-type(5){animation-delay:.36s}
+.donut-center strong{font-size:31px;font-weight:600}
+
+/* 一天的顺序:连线自上而下画出,节点依次落下 */
+.timeline-event{animation:node-drop .55s calc(var(--i,0)*70ms + .1s) both cubic-bezier(.2,.8,.2,1)}
+.timeline-event::before{transform-origin:top;animation:line-draw .5s calc(var(--i,0)*70ms + .2s) both ease-out}
+.timeline-node{transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .2s}
+.timeline-event:hover .timeline-node{transform:scale(1.18)}
+.timeline-event:hover .timeline-copy{transform:translateX(3px)}
+.timeline-copy{transition:transform .25s}
+
+/* 账本感:餐食左侧一道朱砂细线,悬停时落笔 */
+.meal-row{position:relative}
+.meal-row::before{content:"";position:absolute;left:-14px;top:22px;bottom:22px;width:2px;border-radius:2px;background:var(--vermilion);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.meal-row:hover::before,.meal-row:focus-within::before{transform:scaleY(1)}
+.meal-sum{font-family:var(--serif);font-weight:600}
+.food-item .row-actions b{font-family:var(--serif);font-weight:600}
+
+/* 体重卡 */
+.body-card h2{font-size:24px;margin:14px 0 4px}
+.weight-display{font-weight:600;letter-spacing:-2px}
+
+/* 近7天:七个点,记过的点亮 */
+.week-dots{margin:auto 10px 18px;padding-top:20px;border-top:1px solid var(--line)}
+.week-dots>div{display:flex;gap:7px}
+.week-dots i{width:11px;height:11px;border-radius:50%;border:1.5px solid #c9ccbc;display:block}
+.week-dots i.on{background:var(--vermilion);border-color:var(--vermilion);animation:dot-pop .5s both cubic-bezier(.3,1.7,.5,1)}
+.week-dots p{font-size:13px;color:var(--ink-soft);margin-top:11px}
+.week-dots b{font-family:var(--serif);font-size:18px;color:var(--vermilion);font-weight:700}
+.sidebar nav{margin-top:34px}
+
+/* 页面切换 / 按钮 */
+.page-content{animation:page-in .55s cubic-bezier(.2,.8,.2,1)}
+.page-head h1{animation:ink-wipe .9s .05s both cubic-bezier(.2,.8,.2,1)}
+.page-head p{animation:fade-up .6s .3s both}
+.primary-button{border-radius:999px;padding-left:20px;padding-right:22px;transition:box-shadow .25s,transform .25s}
+.primary-button svg{transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.primary-button:hover svg{transform:rotate(90deg)}
+
+/* 滚动到才出现(Chrome 等支持滚动驱动动画的浏览器) */
+@supports (animation-timeline:view()){
+ .meal-row,.training-card,.weekly-panel,.small-panel,.trend-panel,.plain-note,.settings-summary,.source-layout>section{animation:reveal linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+}
+@keyframes reveal{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes arc-draw{from{stroke-dasharray:0 100}}
+@keyframes node-drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes line-draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes dot-pop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes needle-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes ink-wipe{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
+@keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes page-in{from{opacity:0;transform:translateY(10px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+@media(max-width:700px){.page-head h1{font-size:34px}.page-head{padding:30px 0 24px}.meal-row::before{left:-8px}.week-dots{display:none}}
