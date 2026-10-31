@@ -68,7 +68,7 @@ h2{font-weight:600}
 /* 一天的顺序:连线自上而下画出,节点依次落下 */
 .timeline-event{animation:node-drop .55s calc(var(--i,0)*70ms + .1s) both cubic-bezier(.2,.8,.2,1)}
 .timeline-event::before{transform-origin:top;animation:line-draw .5s calc(var(--i,0)*70ms + .2s) both ease-out}
-.timeline-node{transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .2s}
+.timeline-node{transition:transform .3s cubic-bezier(.2,.8,.2,1),background .2s}
 .timeline-event:hover .timeline-node{transform:scale(1.18)}
 .timeline-event:hover .timeline-copy{transform:translateX(3px)}
 .timeline-copy{transition:transform .25s}
@@ -88,7 +88,7 @@ h2{font-weight:600}
 .week-dots{margin:auto 10px 18px;padding-top:20px;border-top:1px solid var(--line)}
 .week-dots>div{display:flex;gap:7px}
 .week-dots i{width:11px;height:11px;border-radius:50%;border:1.5px solid #c9ccbc;display:block}
-.week-dots i.on{background:var(--vermilion);border-color:var(--vermilion);animation:dot-pop .5s both cubic-bezier(.3,1.7,.5,1)}
+.week-dots i.on{background:var(--vermilion);border-color:var(--vermilion);animation:dot-pop .5s both cubic-bezier(.2,.8,.2,1)}
 .week-dots p{font-size:13px;color:var(--ink-soft);margin-top:11px}
 .week-dots b{font-family:var(--serif);font-size:18px;color:var(--vermilion);font-weight:700}
 .sidebar nav{margin-top:34px}
@@ -98,7 +98,7 @@ h2{font-weight:600}
 .page-head h1{animation:ink-wipe .9s .05s both cubic-bezier(.2,.8,.2,1)}
 .page-head p{animation:fade-up .6s .3s both}
 .primary-button{border-radius:999px;padding-left:20px;padding-right:22px;transition:box-shadow .25s,transform .25s}
-.primary-button svg{transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.primary-button svg{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .primary-button:hover svg{transform:rotate(90deg)}
 
 /* 滚动到才出现(Chrome 等支持滚动驱动动画的浏览器) */
